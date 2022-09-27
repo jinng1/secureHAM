@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+    <!-- Header -->
+    <div class="w3-container" style="margin-top:80px" id="showcase">
+      <h1 class="w3-jumbo"><strong>Item Management</strong></h1>
+      <hr style="width:50px;border:5px solid red" class="w3-round">
+    </div>
+  
+    <!-- Buttons to link -->
+    <div class="w3-container" style="margin-top:75px">
+      <div class="form-group">
+        <a href="{% url 'inventory-list' %}">
+          <input type="button" class="btnSubmit btn btn-primary" value="Hospital Asset List" />
+        </a>
+      </div>
+      
+      <div class="form-group">
+        <a href="{% url 'select' %}">
+          <input type="button" class="btnSubmit btn btn-primary" value="GLOBAL Asset List" />
+        </a>
+      </div>
+  
+    </div>
+  
+  <!-- End page content -->
+  </div>
+
+{% endblock content %}

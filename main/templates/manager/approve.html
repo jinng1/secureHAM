@@ -1,0 +1,78 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+    <!-- Header -->
+    <div class="w3-container" style="margin-top:80px" id="showcase">
+      <h1 class="w3-jumbo"><strong>Approve Request?</strong></h1>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'request-from' %}">OTHER Hospital</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Approve Request?</li>
+        </ol>
+      </nav>
+
+      <hr style="width:50px;border:5px solid red" class="w3-round">
+    </div>
+
+
+
+    <div class="w3-container" id="ownHospInfo" style="margin-top:75px">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">MASK</h5>
+          <h6 class="card-subtitle mb-2 text-muted">OWN Hospital</h6>
+          <h7 class="card-text">Stock: 100</h7>
+        </div>
+      </div>
+    </div>
+
+    <!-- Approve? -->
+    <div class="w3-container" id="approve" style="margin-top:75px">
+      <form class="row">
+        <!-- Product Name input -->
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="floatingInputFrom" placeholder="Hospital" value="TOH" readonly>
+          <label for="floatingInputFrom">Which Hospital?</label>
+        </div>
+        
+        <!-- Product Name input -->
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="floatingInputProduct" placeholder="Product Name" value="MASK" readonly>
+          <label for="floatingInputProduct">Product Name</label>
+        </div>
+
+        <!-- Serial Code input -->
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="floatingInputScode" placeholder="Serial Code" value="000-001" readonly>
+          <label for="floatingInputScode">Serial Code</label>
+        </div>
+
+        <!-- Quantity input -->
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control" id="floatingInputQty" placeholder="Quantity">
+          <label for="floatingInputQty">Quantity</label>
+        </div>
+
+        <!-- Submit and cancel button -->
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <button type="button" class="btn btn-danger" style="width:100%;" onclick="history.back()">Reject</button>
+            </div>
+            <div class="col">
+              <button type="button" class="btn btn-success" style="width:100% ;">Approve</button>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- End page content -->
+  </div>
+
+{% endblock content %}

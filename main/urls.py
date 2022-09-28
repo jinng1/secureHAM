@@ -12,6 +12,8 @@ urlpatterns = [
     path('it/home/', views.it_home, name='it-home'),
     path("it/accounts/",views.account_management, name = "account-management"),
     path('it/add_assets/', views.add_assets, name='add-assets'),
+    path('it/update_assets/<str:pk>/', views.update_assets, name='update-assets'),
+    path('it/delete_assets/<str:pk>/', views.delete_assets, name='delete-assets'),
 
     #staff paths
     path('staff/home/', views.staff_home, name='staff-home'),

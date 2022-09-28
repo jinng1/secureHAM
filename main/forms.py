@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-
-from .models import CustomUser
+from django import forms
+from django.forms import ModelForm
+from .models import CustomUser, Items
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -21,3 +22,9 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ('username','role','hospital')
+
+
+class addItemForm(ModelForm):
+    class Meta:
+        model = Items
+        fields = '__all__'

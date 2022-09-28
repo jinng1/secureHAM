@@ -3,7 +3,8 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
-
+from .forms import addItemForm
+from .models import Items 
 
 # Create your views here.
 
@@ -28,14 +29,15 @@ def logout_request(request):
 	return redirect("/auth/login/")
 
 
-
-
 #admin views
 @login_required(login_url='/auth/login/')
 def it_home(request):
     if not request.user.role == "A":
         return redirect("/wrong_user/")
-    return render(request,'IT/item_management.html')
+
+    items = Items.objects.all()
+    context = {'items' : items}
+    return render(request,'IT/item_management.html', context)
 
 @login_required(login_url='/auth/login/')
 def account_management(request):
@@ -47,7 +49,45 @@ def account_management(request):
 def add_assets(request):
     if not request.user.role == "A":
         return redirect("/wrong_user/")
-    return render(request,'IT/add_assets.html')
+
+    # form = addItemForm()
+    if request.method == 'POST':
+        form = addItemForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('it-home')
+    
+    context = {'form' : form}
+    return render(request,'IT/add_assets.html', context)
+
+@login_required(login_url='auth/login/')
+def update_assets(request, pk):
+    if not request.user.role == "A":
+        return redirect("/wrong_user/")
+    
+    item = Items.objects.get(id = pk)
+    form = addItemForm(instance=item)
+
+    if request.method == 'POST':
+        form = addItemForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('it-home')
+
+    context = {'form' : form}
+    return render(request, 'IT/add_assets.html', context)
+
+@login_required(login_url='auth/login/')
+def delete_assets(request, pk):
+    if not request.user.role == "A":
+        return redirect("/wrong_user/")
+    
+    item = Items.objects.get(id=pk)
+    if request.method == 'POST':
+        item.delete()
+        return redirect('it-home')
+    return render(request, 'delete.html', {'obj' : item})
+
 
 
 

@@ -148,31 +148,9 @@ $(document).ready(function () {
   });
 });
 
-//Manager table to add, edit, delete asset
+//Admin table to add, edit, delete asset
 $(document).ready(function () {
-  $('#manageAssetTable').DataTable({
-    columnDefs: [
-      {
-          targets: -1,
-          data: null,
-          className: "text-center",
-          defaultContent: '<select class="form-select" aria-label="Default select example">' +
-          '<option selected></option>' +
-          '<option value="1">Edit</option>' +
-          '<option value="2">Delete</option>' +
-          '</select>',
-      },
-  ],
-      data: dataSetAsset,
-      columns: [
-          { title: '#' },
-          { title: 'Product Name' },
-          { title: 'Serial-Code' },
-          {title: 'Quantity'},
-          {title: 'Status'},
-          {title: 'Action'},
-      ],
-  });
+  $('#manageAssetTable').DataTable({});
 });
 
 //SELECT Asset List Table

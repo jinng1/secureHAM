@@ -4,6 +4,14 @@ import datetime
 from django.db import migrations, models
 import django.db.models.deletion
 
+def hospital_names(apps, schema_editor):
+    # We can't import the Person model directly as it may be a newer
+    # version than this migration expects. We use the historical version.
+    names = ["Tan Tock Seng Hospital","Ng Teng Fond General Hospital","National University Hospital","Changi General Hospital","Raffles Hospital","Thomson Medical Centre"]
+    Hospital = apps.get_model('main', 'Hospital')
+    for name in names:
+        obj = Hospital(name=name)
+        obj.save()
 
 class Migration(migrations.Migration):
 
@@ -66,4 +74,6 @@ class Migration(migrations.Migration):
                 'abstract': False,
             },
         ),
+
+        migrations.RunPython(hospital_names),
     ]

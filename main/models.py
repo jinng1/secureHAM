@@ -1,4 +1,5 @@
 from datetime import datetime
+from random import choice, choices
 from re import M
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
@@ -9,6 +10,8 @@ from .managers import CustomUserManager
 #hospital model
 class Hospital(models.Model):
     name = models.CharField(max_length=40)
+    def __str__(self):
+        return self.name
 
 #items model
 class Items(models.Model):
@@ -48,16 +51,17 @@ class CustomUser(AbstractBaseUser,PermissionsMixin):
     ]
     role = models.CharField(max_length=1,choices = ROLE_CHOICES, default="S")
 
-    HOSPITAL_CHOICES = [
-        ("1","Tan Tock Seng Hospital"),
-        ("2","Ng Teng Fond General Hospital"),
-        ("3", "National University Hospital"),
-        ("4","Changi General Hospital"),
-        ("5", "Raffles Hospital"),
-        ("6", "Thomson Medical Centre"),
-    ]
+    # hospital = Hospital.objects.all()
+    # HOSPITAL_CHOICES = [
+    #     (1,hospital[0].name),
+    #     (2,hospital[1].name),
+    #     (3,hospital[2].name),
+    #     (4,hospital[3].name),
+    #     (5,hospital[4].name),
+    #     (6,hospital[5].name),
+    # ]
 
-    hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE, null=True,choices = HOSPITAL_CHOICES)
+    hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE, null=True)
     passwordChangedAt = models.DateTimeField(default = datetime.now())
 
     USERNAME_FIELD = 'username'

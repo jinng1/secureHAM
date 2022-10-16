@@ -13,9 +13,42 @@
   
     <!-- Asset List -->
     <div class="w3-container" style="margin-top:75px">
-      <!-- Table for Asset List -->
-      <table id="assetListTable" class="ui celled table" style="width:100%"></table>
+      <!-- Table for Asset List -->  
+
+      {% for item in items %}
+      <div>
+        <h1>{{item.id}} -- {{item.itemName}}</h1>
+      </div>
+      {% endfor %}
   
+      <!-- Table to manage asset -->
+      <table id="assetListTable" class="ui celled table" style="width:100%">
+        <thead>
+          <th>ID</th>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Status</th>
+          <th>Action</th>
+        </thead>
+        <tbody>
+          {% for item in items %}
+          <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.itemName}}</td>
+            <td>{{ item.quantity}}</td>
+
+            <td>
+              NONE
+            </td>
+            <td><a href="{% url 'delete-assets' item.id %}">Request</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+  
+  
+      </table>
+
+
     </div>
   
   <!-- End page content -->

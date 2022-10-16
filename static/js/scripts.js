@@ -33,51 +33,10 @@ let dataSetAsset = [
   ['4', 'Sanitiser', '000-001', 100, 'None'],
 ]
 
-//User Table
-$(document).ready(function () {
-  $('#userManagementTable').DataTable({
-    columnDefs: [
-      {
-          targets: -1,
-          data: null,
-          className: "text-center",
-          defaultContent: '<select class="form-select" aria-label="Default select example">' +
-          '<option selected></option>' +
-          '<option value="1">Edit</option>' +
-          '<option value="2">Delete</option>' +
-          '</select>',
-      },
-  ],
-      data: dataSetUser,
-      columns: [
-          { title: '#' },
-          { title: 'Name' },
-          { title: 'Position' },
-          {title: 'Action'},
-      ],
-  });
-});
-
 //Asset List Table
 $(document).ready(function () {
   $('#assetListTable').DataTable({
-    columnDefs: [
-      {
-          targets: -1,
-          data: null,
-          className: "text-center",
-          defaultContent: '<a href="#" onclick="f1()" class="link-info">Request</a>',
-      },
-  ],
-      data: dataSetAsset,
-      columns: [
-          { title: '#' },
-          { title: 'Product Name' },
-          { title: 'Serial-Code' },
-          {title: 'Quantity'},
-          {title: 'Status' , ID : "status"},
-          {title: 'Action'},
-      ],
+
   });
 });
 
@@ -155,28 +114,34 @@ $(document).ready(function () {
 
 //SELECT Asset List Table
 $(document).ready(function () {
-  $('#selectAssetTable').DataTable({
-    columnDefs: [
-      {
-          targets: -1,
-          data: null,
-          className: "text-center",
-          defaultContent: '<a href="#" onclick="f1()" class="link-info">Select</a>',
-      },
-  ],
-      data: dataSetAsset,
-      columns: [
-          { title: '#' },
-          { title: 'Product Name' },
-          { title: 'Serial-Code' },
-          {title: 'Quantity'},
-          {title: 'Status' , ID : "status"},
-          {title: 'Action'},
-      ],
-  });
+  $('#selectAssetTable').DataTable({});
 });
 
-function f1()
-{
-  
-}
+
+
+$(document).ready(function () {
+  $('#manageInvList').DataTable({});
+});
+
+
+$('.add-to-list').click(function () {
+  var id;
+  var url;
+  id = $(this).attr("data-catid");
+  url = $(this).attr("to_java");
+  console.log(id);
+  $.ajax(
+      {
+          type: "GET",
+          url: url,
+          data: {
+              item_id: id
+          },
+          success: function (data) {
+            $('#selectAssetTable').ajax.reload();
+            // $('#add-to-list' + id).removeClass('btn btn-primary btn-block');
+            // $('#add-to-list' + id).addClass('btn btn-success btn-block');
+            // $('#add-to-list' + id).text('Added to the shopping list');
+          }
+      })
+});

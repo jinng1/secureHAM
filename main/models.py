@@ -16,11 +16,24 @@ class Hospital(models.Model):
 #items model
 class Items(models.Model):
     product_name = models.CharField(max_length=40)
+    def __str__(self):
+        return self.product_name
 
 #inventory model
 class Inventory(models.Model):
     hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE)
+    item = models.ForeignKey(Items,on_delete=models.CASCADE)
     quantity = models.IntegerField()
+    
+    def itemName(self):
+        return self.item.product_name
+
+    def itemId(self):
+        return self.item.id
+    
+    def __str__(self):
+        return self.item.product_name
+
 
 #request model
 class Requests(models.Model):

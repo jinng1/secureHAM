@@ -24,7 +24,13 @@ urlpatterns = [
     path('manager/request_to/', views.request_to, name='request-to'),
     path('manager/request_from/', views.request_from, name='request-from'),
     path('manager/request_from/approve/', views.approve, name='approve'),
+
     path('manager/inventory_management', views.inventory_management, name='inventory-management'),
     path('manager/inventory_list', views.inventory_list, name='inventory-list'),
-    path('manager/select', views.select, name='select'),
+    path('manager/manage_inventory_list/<str:pk>/', views.manager_update_assets, name='manage-inventory-list'),
+    path('manager/manage_delete_assets/<str:pk>/', views.manager_delete_assets, name='manage-delete-assets'),
+
+    path('manager/select/<str:pk>/', views.select, name='select'),
+    path('manager/select_list', views.select_list, name='select-list'),
+
 ]

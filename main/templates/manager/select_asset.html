@@ -4,21 +4,62 @@
 {% block content %}
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:340px;margin-right:40px">
-
-    <!-- Header -->
-    <div class="w3-container" style="margin-top:80px" id="showcase">
-      <h1 class="w3-jumbo"><strong>MANAGER SELECT List</strong></h1>
-      <hr style="width:50px;border:5px solid red" class="w3-round">
-    </div>
-  
-    <!-- Asset List -->
-    <div class="w3-container" style="margin-top:75px">
-      <!-- Table for Asset List -->
-      <table id="selectAssetTable" class="ui celled table" style="width:100%"></table>
-  
-    </div>
-  
-  <!-- End page content -->
+  <!-- Header -->
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+    <h1 class="w3-jumbo"><strong>MANAGER SELECT List</strong></h1>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'inventory-management' %}">Inventory Management</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Select</li>
+      </ol>
+    </nav>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
   </div>
+
+  <!-- Asset List -->
+  <div class="w3-container" style="margin-top:75px">
+    <!-- Table for Asset List -->
+    {% for item in items %}
+    <div>
+      <h1>{{item.id}} -- {{item.product_name}}</h1>
+    </div>
+    {% endfor %}
+    <h1>ssssss</h1>
+    {% for test in tests %}
+    <div>
+      <h1>{{test.id}} -- {{test.itemName}} -- {{test.itemId}}</h1>
+    </div>
+    {% endfor %}
+
+    <!-- Table to manage asset -->
+    <table id="selectAssetTable" class="ui celled table" style="width:100%">
+      <thead>
+        <th>ID</th>
+        <th>Product Name</th>
+        <th>Select</th>
+      </thead>
+      <tbody>
+        {% for item in items %}
+        <tr>
+          <td>{{ item.id }}</td>
+          <td>{{ item.product_name}}</td>
+          <td>
+            <a href="{% url 'select' item.id %}" >
+              Select
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+
+
+    </table>
+
+
+
+  </div>
+
+  <!-- End page content -->
+</div>
 
 {% endblock content %}

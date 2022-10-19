@@ -42,69 +42,17 @@ $(document).ready(function () {
 
 //Requested List Table
 $(document).ready(function () {
-  $('#requestedListTable').DataTable({
-      data: dataSetAsset,
-      columns: [
-          { title: '#' },
-          { title: 'Product Name' },
-          { title: 'Serial-Code' },
-          {title: 'Quantity'},
-          {title: 'Status'},
-      ],
-  });
+  $('#requestedListTable').DataTable({});
 });
 
 //Request To Table for manager
 $(document).ready(function () {
-  $('#requestToTable').DataTable({
-    columnDefs: [
-      {
-          targets: -1,
-          data: null,
-          className: "text-center",
-          defaultContent: '<select class="form-select" aria-label="Default select example">' +
-          '<option selected></option>' +
-          '<option value="1">Request to OTHER Hospital</option>' +
-          '<option value="2">Reject</option>' +
-          '</select>',
-      },
-  ],
-      data: dataSetAsset,
-      columns: [
-          { title: '#' },
-          { title: 'Product Name' },
-          { title: 'Serial-Code' },
-          {title: 'Quantity'},
-          {title: 'Status'},
-          {title: 'Action'},
-      ],
-  });
+  $('#requestToTable').DataTable({});
 });
 
 //Request FROM for manager
 $(document).ready(function () {
-  $('#requestFromTable').DataTable({
-    columnDefs: [
-      {
-          targets: -1,
-          data: null,
-          className: "text-center",
-          defaultContent:
-          '<a href="approve/">' +
-          '<input type="button" class="btn btn-primary" value="Click" />'+
-          '</a>',
-      },
-  ],
-      data: dataSetAsset,
-      columns: [
-          { title: '#' },
-          { title: 'Product Name' },
-          { title: 'Serial-Code' },
-          {title: 'Quantity'},
-          {title: 'Status'},
-          {title: 'Action'},
-      ],
-  });
+  $('#requestFromTable').DataTable({});
 });
 
 //Admin table to add, edit, delete asset

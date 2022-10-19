@@ -18,53 +18,54 @@
       <hr style="width:50px;border:5px solid red" class="w3-round">
     </div>
 
-
-
-    <div class="w3-container" id="ownHospInfo" style="margin-top:75px">
-      <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">MASK</h5>
-          <h6 class="card-subtitle mb-2 text-muted">OWN Hospital</h6>
-          <h7 class="card-text">Stock: 100</h7>
-        </div>
-      </div>
+<!-- 
+    <div>
+      <h1>Request -- {{reqs.id}} -- {{reqs.invName}} -- {{reqs.invQty}} -- {{reqs.invHosp}} </h1>
     </div>
+
+    <div>
+      <h1>OWN -- {{invs.id}} -- {{invs.itemName}} -- {{invs.quantity}} -- {{invs.hospital}} </h1>
+    </div> -->
+
+
 
     <!-- Approve? -->
     <div class="w3-container" id="approve" style="margin-top:75px">
+
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">{{invs.itemName}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{invs.hospital}}</h6>
+            <h7 class="card-text">Stock: {{invs.quantity}}</h7>
+
+          </div>
+        </div>
+
+
       <form class="row">
-        <!-- Product Name input -->
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInputFrom" placeholder="Hospital" value="TOH" readonly>
-          <label for="floatingInputFrom">Which Hospital?</label>
-        </div>
-        
-        <!-- Product Name input -->
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInputProduct" placeholder="Product Name" value="MASK" readonly>
-          <label for="floatingInputProduct">Product Name</label>
-        </div>
-
-        <!-- Serial Code input -->
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInputScode" placeholder="Serial Code" value="000-001" readonly>
-          <label for="floatingInputScode">Serial Code</label>
-        </div>
-
-        <!-- Quantity input -->
-        <div class="form-floating mb-3">
-          <input type="number" class="form-control" id="floatingInputQty" placeholder="Quantity">
-          <label for="floatingInputQty">Quantity</label>
+        <div class="w3-container" id="requestHospInfo" style="margin-top:15px">
+          <div class="card" style="width: 21rem;">
+            <div class="card-body">
+              <h5 class="card-title">Approve Request?</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Request Made by {{reqs.invHosp}}</h6>
+              <h7 class="card-text">Product Name: {{reqs.invName}}</h7>
+              <br>
+              <h7 class="card-text">Stock: {{reqs.invQty}} {{reqs.invName}}</h7>
+            </div>
+          </div>
         </div>
 
         <!-- Submit and cancel button -->
-        <div class="container">
+        <div class="w3-container">
+          <br/>
           <div class="row">
             <div class="col">
-              <button type="button" class="btn btn-danger" style="width:100%;" onclick="history.back()">Reject</button>
+              <button type="button" class="btn btn-secondary" style="width:100%;" onclick="history.back()">Cancel</button>
             </div>
             <div class="col">
-              <button type="button" class="btn btn-success" style="width:100% ;">Approve</button>
+              <a type="button" class="btn btn-success" style="width:100% ;" href="{% url 'request-from-manager' reqs.id %}" >
+                Approve
+              </a>
             </div>
           </div>
         </div>

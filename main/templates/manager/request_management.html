@@ -15,7 +15,7 @@
   <div class="w3-container" style="margin-top:75px">
     <div class="form-group">
       <a href="{% url 'request-to' %}">
-        <input type="button" class="btnSubmit btn btn-primary" value="OWN Hospital" />
+        <input type="button" class="btnSubmit btn btn-primary" value="My Hospital" />
       </a>
     </div>
 
@@ -23,17 +23,6 @@
       <a href="{% url 'request-from' %}">
         <input type="button" class="btnSubmit btn btn-primary" value="OTHER Hospital" />
       </a>
-    </div>
-
-    {% for item in items %}
-    <div>
-      <h1>{{item.id}} -- {{item.product_name}} -- {{item}} </h1>
-    </div>
-    {% endfor %}
-
-    <div>
-      <h1>Current User</h1>
-      <h2>{{tests}} -- {{tests.username}} -- {{tests.hospital.id}} </h2>
     </div>
 
   </div>

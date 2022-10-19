@@ -24,7 +24,8 @@ class Inventory(models.Model):
     hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE)
     item = models.ForeignKey(Items,on_delete=models.CASCADE)
     quantity = models.IntegerField()
-    
+    status = models.CharField(max_length = 9)
+
     def itemName(self):
         return self.item.product_name
 
@@ -37,20 +38,24 @@ class Inventory(models.Model):
 
 #request model
 class Requests(models.Model):
-    item = models.ForeignKey(Items,on_delete=models.CASCADE)
-    hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE)
-    quantity = models.IntegerField()
-    STATUS = [
-        ('submitted','Submitted'),
-        ('pending','Pending'),
-        ('approved','Approved'),
-        ('rejected','Rejected')
-    ]
-    status = models.CharField(
-        max_length = 9,
-        choices = STATUS,
-        default = 'submitted'
-    )
+    inventory = models.ForeignKey(Inventory,on_delete=models.CASCADE)
+    requestBy = models.IntegerField()
+    requestAcceptedFrom = models.IntegerField()
+
+    def invName(self):
+        return self.inventory.item
+
+    def invQty(self):
+        return self.inventory.quantity
+    
+    def invStatus(self):
+        return self.inventory.status
+    
+    def invHosp(self):
+        return self.inventory.hospital
+
+    def invitemId(self):
+        return self.inventory.item_id
 
 #custom user model
 class CustomUser(AbstractBaseUser,PermissionsMixin):

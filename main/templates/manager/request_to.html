@@ -7,11 +7,11 @@
 
     <!-- Header -->
     <div class="w3-container" style="margin-top:80px" id="showcase">
-      <h1 class="w3-jumbo"><strong>OWN Hospital</strong></h1>
+      <h1 class="w3-jumbo"><strong>{{request.user.hospital}}</strong></h1>
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{% url 'manager-home' %}">Request Management</a></li>
-          <li class="breadcrumb-item active" aria-current="page">OWN Hospital</li>
+          <li class="breadcrumb-item active" aria-current="page">{{request.user.hospital}}</li>
         </ol>
       </nav>
       <hr style="width:50px;border:5px solid red" class="w3-round">
@@ -20,9 +20,46 @@
     
     <!-- Asset List for Manager to request -->
     <div class="w3-container" style="margin-top:75px">
-      <!-- Table for Asset List for Manager to request -->
-      <table id="requestToTable" class="ui celled table" style="width:100%"></table>
+      <!-- Table for Asset List for Manager to request -->      
+      <table id="requestToTable" class="ui celled table" style="width:100%">
+        <thead>
+          <th>ID</th>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Status</th>
+          <th colspan="2">Action</th>
+        </thead>
+        <tbody>
+          {% for item in items %}
+          <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.itemName}}</td>
+            <td>{{ item.quantity}}</td>
+            <td>
+              {{item.status}}
+            </td>
+            <td>
+              {% if item.status == "Submitted" or item.status == "Pending" %}
+              Waiting              
+              {% else %}
+              <a href="{% url 'request-to-by-manager' item.id %}">Request to Other Hospital</a>
+              {% endif %}
+              
+            </td>
+            <td>
+              {% if item.status == "Submitted" or item.status == "Pending" %}
+              {% else %}
+              <a href="{% url 'reject-to-by-manager' item.id %}">Reject</a>
+              {% endif %}
+              
+
+            </td>
+            </tr>
+          {% endfor %}
+        </tbody>
   
+  
+      </table>
     </div>
   
   <!-- End page content -->

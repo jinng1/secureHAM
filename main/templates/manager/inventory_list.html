@@ -6,11 +6,11 @@
 <div class="w3-main" style="margin-left:340px;margin-right:40px">
   <!-- Header -->
   <div class="w3-container" style="margin-top:80px" id="showcase">
-    <h1 class="w3-jumbo"><strong>Hospital Inventory List</strong></h1>
+    <h1 class="w3-jumbo"><strong>{{request.user.hospital}} Inventory List</strong></h1>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'inventory-management' %}">Inventory Management</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Hospital Inventory List</li>
+        <li class="breadcrumb-item active" aria-current="page">Inventory List</li>
       </ol>
     </nav>
     <hr style="width:50px;border:5px solid red" class="w3-round">
@@ -19,12 +19,7 @@
     
     <!-- OWN Hospital Inventory List Manager to manage -->
     <div class="w3-container" style="margin-top:75px">
-      {% for item in items %}
-      <div>
-        <h1>{{item.id}} -- {{item.itemName}}</h1>
-      </div>
-      {% endfor %}
-  
+
       <!-- Table to manage asset -->
       <table id="manageInvList" class="ui celled table" style="width:100%">
         <thead>

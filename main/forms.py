@@ -36,5 +36,5 @@ class managerItemForm(ModelForm):
         self.fields['item'].disabled = True
     class Meta:
         model = Inventory
-        exclude = ['hospital']
+        exclude = ['hospital', 'status']
         # fields = '__all__'

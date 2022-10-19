@@ -37,22 +37,24 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Requests',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('quantity', models.IntegerField()),
-                ('status', models.CharField(choices=[('submitted', 'Submitted'), ('pending', 'Pending'), ('approved', 'Approved'), ('rejected', 'Rejected')], default='submitted', max_length=9)),
-                ('hospital', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.hospital')),
-                ('item', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.items')),
-            ],
-        ),
-        migrations.CreateModel(
             name='Inventory',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('quantity', models.IntegerField()),
                 ('hospital', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.hospital')),
                 ('item', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.items')),
+                ('status', models.CharField(max_length=9)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Requests',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('inventory', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.inventory')),
+                ('requestBy', models.IntegerField()),
+                ('requestAcceptedFrom', models.IntegerField()),
+
+
             ],
         ),
         migrations.CreateModel(

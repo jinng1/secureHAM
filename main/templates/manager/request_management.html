@@ -5,29 +5,29 @@
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:340px;margin-right:40px">
 
-    <!-- Header -->
-    <div class="w3-container" style="margin-top:80px" id="showcase">
-      <h1 class="w3-jumbo"><strong>Request Management</strong></h1>
-      <hr style="width:50px;border:5px solid red" class="w3-round">
-    </div>
-  
-    <!-- Buttons to link -->
-    <div class="w3-container" style="margin-top:75px">
-      <div class="form-group">
-        <a href="{% url 'request-to' %}">
-          <input type="button" class="btnSubmit btn btn-primary" value="OWN Hospital" />
-        </a>
-      </div>
-      
-      <div class="form-group">
-        <a href="{% url 'request-from' %}">
-          <input type="button" class="btnSubmit btn btn-primary" value="OTHER Hospital" />
-        </a>
-      </div>
-  
-    </div>
-  
-  <!-- End page content -->
+  <!-- Header -->
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+    <h1 class="w3-jumbo"><strong>Request Management</strong></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
   </div>
+
+  <!-- Buttons to link -->
+  <div class="w3-container" style="margin-top:75px">
+    <div class="form-group">
+      <a href="{% url 'request-to' %}">
+        <input type="button" class="btnSubmit btn btn-primary" value="My Hospital" />
+      </a>
+    </div>
+
+    <div class="form-group">
+      <a href="{% url 'request-from' %}">
+        <input type="button" class="btnSubmit btn btn-primary" value="OTHER Hospital" />
+      </a>
+    </div>
+
+  </div>
+
+  <!-- End page content -->
+</div>
 
 {% endblock content %}

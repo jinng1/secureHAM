@@ -1,4 +1,5 @@
 from datetime import datetime
+from random import choice, choices
 from re import M
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
@@ -9,32 +10,52 @@ from .managers import CustomUserManager
 #hospital model
 class Hospital(models.Model):
     name = models.CharField(max_length=40)
+    def __str__(self):
+        return self.name
 
 #items model
 class Items(models.Model):
     product_name = models.CharField(max_length=40)
+    def __str__(self):
+        return self.product_name
 
 #inventory model
 class Inventory(models.Model):
     hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE)
+    item = models.ForeignKey(Items,on_delete=models.CASCADE)
     quantity = models.IntegerField()
+    status = models.CharField(max_length = 9)
+
+    def itemName(self):
+        return self.item.product_name
+
+    def itemId(self):
+        return self.item.id
+    
+    def __str__(self):
+        return self.item.product_name
+
 
 #request model
 class Requests(models.Model):
-    item = models.ForeignKey(Items,on_delete=models.CASCADE)
-    hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE)
-    quantity = models.IntegerField()
-    STATUS = [
-        ('submitted','Submitted'),
-        ('pending','Pending'),
-        ('approved','Approved'),
-        ('rejected','Rejected')
-    ]
-    status = models.CharField(
-        max_length = 9,
-        choices = STATUS,
-        default = 'submitted'
-    )
+    inventory = models.ForeignKey(Inventory,on_delete=models.CASCADE)
+    requestBy = models.IntegerField()
+    requestAcceptedFrom = models.IntegerField()
+
+    def invName(self):
+        return self.inventory.item
+
+    def invQty(self):
+        return self.inventory.quantity
+    
+    def invStatus(self):
+        return self.inventory.status
+    
+    def invHosp(self):
+        return self.inventory.hospital
+
+    def invitemId(self):
+        return self.inventory.item_id
 
 #custom user model
 class CustomUser(AbstractBaseUser,PermissionsMixin):
@@ -48,16 +69,17 @@ class CustomUser(AbstractBaseUser,PermissionsMixin):
     ]
     role = models.CharField(max_length=1,choices = ROLE_CHOICES, default="S")
 
-    HOSPITAL_CHOICES = [
-        ("1","Tan Tock Seng Hospital"),
-        ("2","Ng Teng Fond General Hospital"),
-        ("3", "National University Hospital"),
-        ("4","Changi General Hospital"),
-        ("5", "Raffles Hospital"),
-        ("6", "Thomson Medical Centre"),
-    ]
+    # hospital = Hospital.objects.all()
+    # HOSPITAL_CHOICES = [
+    #     (1,hospital[0].name),
+    #     (2,hospital[1].name),
+    #     (3,hospital[2].name),
+    #     (4,hospital[3].name),
+    #     (5,hospital[4].name),
+    #     (6,hospital[5].name),
+    # ]
 
-    hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE, null=True,choices = HOSPITAL_CHOICES)
+    hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE, null=True)
     passwordChangedAt = models.DateTimeField(default = datetime.now())
 
     USERNAME_FIELD = 'username'

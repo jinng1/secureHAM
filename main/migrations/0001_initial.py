@@ -4,6 +4,14 @@ import datetime
 from django.db import migrations, models
 import django.db.models.deletion
 
+def hospital_names(apps, schema_editor):
+    # We can't import the Person model directly as it may be a newer
+    # version than this migration expects. We use the historical version.
+    names = ["Tan Tock Seng Hospital","Ng Teng Fond General Hospital","National University Hospital","Changi General Hospital","Raffles Hospital","Thomson Medical Centre"]
+    Hospital = apps.get_model('main', 'Hospital')
+    for name in names:
+        obj = Hospital(name=name)
+        obj.save()
 
 class Migration(migrations.Migration):
 
@@ -29,21 +37,24 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Requests',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('quantity', models.IntegerField()),
-                ('status', models.CharField(choices=[('submitted', 'Submitted'), ('pending', 'Pending'), ('approved', 'Approved'), ('rejected', 'Rejected')], default='submitted', max_length=9)),
-                ('hospital', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.hospital')),
-                ('item', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.items')),
-            ],
-        ),
-        migrations.CreateModel(
             name='Inventory',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('quantity', models.IntegerField()),
                 ('hospital', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.hospital')),
+                ('item', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.items')),
+                ('status', models.CharField(max_length=9)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Requests',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('inventory', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.inventory')),
+                ('requestBy', models.IntegerField()),
+                ('requestAcceptedFrom', models.IntegerField()),
+
+
             ],
         ),
         migrations.CreateModel(
@@ -66,4 +77,6 @@ class Migration(migrations.Migration):
                 'abstract': False,
             },
         ),
+
+        migrations.RunPython(hospital_names),
     ]

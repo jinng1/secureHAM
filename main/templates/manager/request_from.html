@@ -17,12 +17,40 @@
       <hr style="width:50px;border:5px solid red" class="w3-round">
     </div>
   
-    
+
     <!-- Asset List for Manager to request -->
     <div class="w3-container" style="margin-top:75px">
       <!-- Table for Asset List for Manager to request -->
-      <table id="requestFromTable" class="ui celled table" style="width:100%"></table>
+
+      <table id="requestFromTable" class="ui celled table" style="width:100%">
+        <thead>
+          <th>ID</th>
+          <th>Hospital Name</th>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Status</th>
+          <th>Action</th>
+        </thead>
+        <tbody>
+          {% for item in reqs %}
+          <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.invHosp }}</td>
+            <td>{{ item.invName}}</td>
+            <td>{{ item.invQty}}</td>
+            <td>
+              {{item.invStatus}}
+            </td>
+            <td>
+              <a href="{% url 'approve' item.id %}">Edit</a>
+            </td>
+
+            </tr>
+          {% endfor %}
+        </tbody>
   
+  
+      </table>
     </div>
   
   <!-- End page content -->
